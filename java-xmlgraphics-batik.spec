@@ -6,10 +6,6 @@ Version:	1.1.1
 Release:	1
 License:	Apache Software License
 Group:		Applications/Publishing/XML/Java
-Group(de):	Applikationen/Publizieren/XML/Java
-Group(es):	Aplicaciones/Editoración/XML/Java
-Group(pl):	Aplikacje/Publikowanie/XML/Java
-Group(pt_BR):	Aplicações/Editoração/XML/Java
 URL:		http://xml.apache.org/batik
 Source0:	http://xml.apache.org/batik/dist/%{name}-src-%{version}.zip
 BuildRequires:	jdk
