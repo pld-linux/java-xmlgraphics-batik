@@ -13,11 +13,7 @@ Group(pt_BR):	Aplicações/Editoração/XML/Java
 URL:		http://xml.apache.org/batik
 Source0:	http://xml.apache.org/batik/dist/%{name}-src-%{version}.zip
 BuildRequires:	jdk
-BuildRequires:	xalan-j >= 1.4.4-2
-BuildRequires:	xerces-j >= 1.4.4-2
 Requires:	jre
-Requires:	xalan-j >= 1.4.4-2
-Requires:	xerces-j >= 1.4.4-2
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
