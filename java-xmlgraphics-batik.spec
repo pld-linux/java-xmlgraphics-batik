@@ -5,15 +5,15 @@ Version:	1.1.1
 Release:	2
 License:	Apache
 Group:		Applications/Publishing/XML/Java
-URL:		http://xml.apache.org/batik/
-Source0:	http://xml.apache.org/batik/dist/%{name}-src-%{version}.zip
+Source0:	http://archive.apache.org/dist/xml/batik/%{name}-src-%{version}.zip
 # Source0-md5:	8601c9cba32607393c1556c1e1200b53
+URL:		http://xml.apache.org/batik/
 BuildRequires:	jdk
 Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_javaclassdir	%{_libdir}/java/
+%define		_javaclassdir	%{_libdir}/java
 
 %description
 Java SVG support.
@@ -44,5 +44,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README %{name}-%{version}/docs/* %{name}-%{version}/samples
+%dir %{_javaclassdir}/%{name}
 %{_javaclassdir}/%{name}/*.jar
+%dir %{_javaclassdir}/%{name}/lib
 %{_javaclassdir}/%{name}/lib/*.jar
