@@ -18,7 +18,6 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_javaclassdir	%{_libdir}/java/
-%define		jredir			%{_libdir}/java-sdk/jre/lib
 
 %description
 Java SVG support.
@@ -33,18 +32,15 @@ Wsparcie dla SVG dla jêzyka Java.
 JAVA_HOME=%{_libdir}/java-sdk
 export JAVA_HOME
 
-sh build.sh compile
-sh build.sh html
-
-( cd classes
-  jar cf ../%{name}.jar .
-)
+#sh build.sh dist-tgz # does not work :-(
+sh build.sh dist-zip
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_javaclassdir}
+install -d $RPM_BUILD_ROOT%{_javaclassdir}/%{name}/lib
 
-install %{name}.jar $RPM_BUILD_ROOT%{_javaclassdir}
+install %{name}-%{version}/lib/*.jar $RPM_BUILD_ROOT%{_javaclassdir}/%{name}/lib
+install %{name}-%{version}/*.jar $RPM_BUILD_ROOT%{_javaclassdir}/%{name}
 
 gzip -9nf README
 
@@ -54,4 +50,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc *.gz %{name}-%{version}/docs/* %{name}-%{version}/samples
-%{_javaclassdir}/*.jar
+%{_javaclassdir}/%{name}/*.jar
+%{_javaclassdir}/%{name}/lib/*.jar
