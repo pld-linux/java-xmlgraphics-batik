@@ -7,6 +7,7 @@ License:	Apache
 Group:		Applications/Publishing/XML/Java
 URL:		http://xml.apache.org/batik/
 Source0:	http://xml.apache.org/batik/dist/%{name}-src-%{version}.zip
+# Source0-md5:	8601c9cba32607393c1556c1e1200b53
 BuildRequires:	jdk
 Requires:	jre
 BuildArch:	noarch
