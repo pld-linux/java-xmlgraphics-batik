@@ -6,7 +6,7 @@ Version:	1.1.1
 Release:	2
 License:	Apache Software License
 Group:		Applications/Publishing/XML/Java
-URL:		http://xml.apache.org/batik
+URL:		http://xml.apache.org/batik/
 Source0:	http://xml.apache.org/batik/dist/%{name}-src-%{version}.zip
 BuildRequires:	jdk
 Requires:	jre
