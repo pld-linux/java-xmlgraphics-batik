@@ -9,6 +9,7 @@ Source0:	http://archive.apache.org/dist/xml/batik/%{name}-src-%{version}.zip
 # Source0-md5:	8a3ba8b76dcef9415216d6a5b9685a9c
 URL:		http://xml.apache.org/batik/
 BuildRequires:	jdk
+BuildRequires:	unzip
 Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
