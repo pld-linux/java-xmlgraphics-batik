@@ -1,12 +1,12 @@
 Summary:	Java SVG support
 Summary(pl):	Wsparcie dla SVG dla jêzyka Java
 Name:		batik
-Version:	1.1.1
-Release:	2
+Version:	1.5.1
+Release:	1
 License:	Apache
 Group:		Applications/Publishing/XML/Java
 Source0:	http://archive.apache.org/dist/xml/batik/%{name}-src-%{version}.zip
-# Source0-md5:	8601c9cba32607393c1556c1e1200b53
+# Source0-md5:	8a3ba8b76dcef9415216d6a5b9685a9c
 URL:		http://xml.apache.org/batik/
 BuildRequires:	jdk
 Requires:	jre
