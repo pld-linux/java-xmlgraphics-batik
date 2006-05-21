@@ -1,12 +1,13 @@
 Summary:	Java SVG support
 Summary(pl):	Wsparcie dla SVG dla jêzyka Java
 Name:		batik
-Version:	1.5.1
-Release:	1
+Version:	1.6
+%define	_snap	408156
+Release:	1.%{_snap}.1
 License:	Apache
 Group:		Applications/Publishing/XML/Java
-Source0:	http://archive.apache.org/dist/xml/batik/%{name}-src-%{version}.zip
-# Source0-md5:	8a3ba8b76dcef9415216d6a5b9685a9c
+Source0:	%{name}-svn-%{_snap}.tar.bz2
+# Source0-md5:	4b0d5ee20c804c244b547f3427502652
 URL:		http://xml.apache.org/batik/
 BuildRequires:	jdk
 BuildRequires:	unzip
@@ -21,6 +22,17 @@ Java SVG support.
 
 %description -l pl
 Wsparcie dla SVG dla jêzyka Java.
+
+%package doc
+Summary:	Documentation for the Batik library
+Summary(pl):	Dokumentacja dla biblioteki Batik
+Group:		Documentation
+
+%description doc
+Documentation for the Batik library.
+
+%description doc -l pl
+Dokumentacja dla biblioteki Batik.
 
 %prep
 %setup -q -n xml-%{name}
@@ -44,8 +56,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README %{name}-%{version}/docs/* %{name}-%{version}/samples
+%doc NOTICE README
 %dir %{_javaclassdir}/%{name}
 %{_javaclassdir}/%{name}/*.jar
 %dir %{_javaclassdir}/%{name}/lib
 %{_javaclassdir}/%{name}/lib/*.jar
+
+%files doc
+%doc %{name}-%{version}/docs/* %{name}-%{version}/samples
