@@ -63,4 +63,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_javaclassdir}/%{name}/lib/*.jar
 
 %files doc
+%defattr(644,root,root,755)
 %doc %{name}-%{version}/docs/* %{name}-%{version}/samples
