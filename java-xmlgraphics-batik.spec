@@ -39,6 +39,7 @@ Dokumentacja dla biblioteki Batik.
 
 %build
 JAVA_HOME=%{_libdir}/java
+#JAVA_HOME=/usr/lib/jvm/java-sun-1.5.0.06
 export JAVA_HOME
 
 #sh build.sh dist-tgz # does not work :-(
