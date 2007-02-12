@@ -1,5 +1,5 @@
 Summary:	Java SVG support
-Summary(pl):	Wsparcie dla SVG dla jêzyka Java
+Summary(pl.UTF-8):   Wsparcie dla SVG dla jÄ™zyka Java
 Name:		batik
 Version:	1.6
 %define	_snap	408156
@@ -20,18 +20,18 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Java SVG support.
 
-%description -l pl
-Wsparcie dla SVG dla jêzyka Java.
+%description -l pl.UTF-8
+Wsparcie dla SVG dla jÄ™zyka Java.
 
 %package doc
 Summary:	Documentation for the Batik library
-Summary(pl):	Dokumentacja dla biblioteki Batik
+Summary(pl.UTF-8):   Dokumentacja dla biblioteki Batik
 Group:		Documentation
 
 %description doc
 Documentation for the Batik library.
 
-%description doc -l pl
+%description doc -l pl.UTF-8
 Dokumentacja dla biblioteki Batik.
 
 %prep
