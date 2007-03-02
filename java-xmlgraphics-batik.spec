@@ -3,13 +3,14 @@ Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
 Name:		batik
 Version:	1.6
 %define	_snap	408156
-Release:	1.%{_snap}.1
+Release:	1.%{_snap}.2
 License:	Apache
 Group:		Applications/Publishing/XML/Java
 Source0:	%{name}-svn-%{_snap}.tar.bz2
 # Source0-md5:	4b0d5ee20c804c244b547f3427502652
 URL:		http://xml.apache.org/batik/
 BuildRequires:	jdk
+BuildRequires:	jpackage-utils
 BuildRequires:	unzip
 Requires:	jre
 BuildArch:	noarch
@@ -38,9 +39,8 @@ Dokumentacja dla biblioteki Batik.
 %setup -q -n xml-%{name}
 
 %build
-JAVA_HOME=%{_libdir}/java
-#JAVA_HOME=/usr/lib/jvm/java-sun-1.5.0.06
-export JAVA_HOME
+unset CLASSPATH || :
+export JAVA_HOME="%{java_home}"
 
 #sh build.sh dist-tgz # does not work :-(
 sh build.sh dist-zip
