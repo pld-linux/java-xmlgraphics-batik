@@ -1,5 +1,6 @@
 # TODO:
 # - generate docs without using forrest. It seems to be possible.
+# - do not use pdf-transcoder.jar from batik sources. See comments in %%prep
 #
 # Conditional build:
 %bcond_with	docs		# build with docs (require apache-forrest)
@@ -22,8 +23,6 @@ BuildRequires:	unzip
 Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_javaclassdir	%{_libdir}/java
 
 %description
 Java SVG support.
@@ -49,6 +48,19 @@ Dokumentacja dla biblioteki Batik.
 %patch0 -p0
 %endif
 
+#
+# We do want to use system libs
+# problem:
+#   pdf-transcoder.jar is provided by fop, but this spec is BR for for. So we
+#   have to use pdf-transcoder.jar from batik sources.
+#
+
+br_jars='js xalan xercesImpl xml-apis xml-apis-ext'
+rm lib/js.jar lib/xalan*.jar lib/xerces*.jar lib/xml-apis*.jar
+for jar in $br_jars; do
+  ln -s $(find-jar $jar) lib
+done
+
 %build
 unset CLASSPATH || :
 export JAVA_HOME="%{java_home}"
@@ -58,21 +70,33 @@ sh build.sh dist-zip
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_javaclassdir}/%{name}/lib
+install -d $RPM_BUILD_ROOT%{_javadir}/%{name}/lib
 
-install %{name}-%{version}/lib/*.jar $RPM_BUILD_ROOT%{_javaclassdir}/%{name}/lib
-install %{name}-%{version}/*.jar $RPM_BUILD_ROOT%{_javaclassdir}/%{name}
+cd %{name}-%{version}
+for jar in batik*.jar; do
+  base=$(basename $jar .jar)
+  install $jar $RPM_BUILD_ROOT%{_javadir}/$base-%{version}.jar
+  ln -s $base-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$base.jar
+done
+
+cd lib
+for jar in batik*.jar; do
+  install $jar $RPM_BUILD_ROOT%{_javadir}/%{name}/$jar
+done
+
+#
+# get rid of this jar!!! see TODO
+#
+install pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{name}/pdf-transcoder.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc NOTICE README
-%dir %{_javaclassdir}/%{name}
-%{_javaclassdir}/%{name}/*.jar
-%dir %{_javaclassdir}/%{name}/lib
-%{_javaclassdir}/%{name}/lib/*.jar
+%doc CHANGES KEYS NOTICE README
+%dir %{_javadir}/batik*.jar
+%{_javadir}/%{name}
 
 %if %{with docs}
 %files doc
