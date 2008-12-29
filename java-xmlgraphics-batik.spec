@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	docs		# build with docs (require apache-forrest)
+#
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
 Name:		batik
@@ -7,8 +11,9 @@ License:	Apache
 Group:		Applications/Publishing/XML/Java
 Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
 # Source0-md5:	c117ca2241907f62a2b3031167ebf917
+Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
-BuildRequires:	forrest
+%{?with_docs:BuildRequires:	apache-forrest}
 BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	unzip
@@ -38,6 +43,10 @@ Dokumentacja dla biblioteki Batik.
 %prep
 %setup -q
 
+%if %{without docs}
+%patch0 -p0
+%endif
+
 %build
 unset CLASSPATH || :
 export JAVA_HOME="%{java_home}"
@@ -63,6 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_javaclassdir}/%{name}/lib
 %{_javaclassdir}/%{name}/lib/*.jar
 
+%if %{with docs}
 %files doc
 %defattr(644,root,root,755)
 %doc %{name}-%{version}/docs/* %{name}-%{version}/samples
+%endif
