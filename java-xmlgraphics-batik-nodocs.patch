@@ -1,0 +1,20 @@
+--- build.xml.orig	2008-12-29 01:51:00.000000000 +0100
++++ build.xml	2008-12-29 01:51:25.000000000 +0100
+@@ -348,7 +348,7 @@
+ 
+   <!-- Build .............................................................. -->
+   <target name="dist-zip" depends="build-zip"/>
+-  <target name="build-zip" depends="doc-zip, bin-zip, src-zip"/>
++  <target name="build-zip" depends="bin-zip, src-zip"/>
+ 
+   <target name="doc-zip" depends="init, html">
+     <delete dir="${build}/docs/images/BE"/>
+@@ -357,7 +357,7 @@
+     <delete dir="${build}/docs/javadoc"/>
+   </target>
+ 
+-  <target name="bin-zip" depends="init, jars, htmldoc, bundle-script">
++  <target name="bin-zip" depends="init, jars, bundle-script">
+     <zip zipfile="${project}-${completeVersion}.zip">
+       <zipfileset dir="." prefix="${project}-${completeVersion}">
+         <include name="LICENSE"/>
