@@ -1,3 +1,5 @@
+# TODO:
+# - generate docs without using forrest. It seems to be possible.
 #
 # Conditional build:
 %bcond_with	docs		# build with docs (require apache-forrest)
