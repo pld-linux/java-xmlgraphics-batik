@@ -1,9 +1,9 @@
 # TODO:
 # - generate docs without using forrest. It seems to be possible.
-# - do not use pdf-transcoder.jar from batik sources. See comments in %%prep
 #
 # Conditional build:
 %bcond_with	docs		# build with docs (require apache-forrest)
+%bcond_with	bootstrap	# break BR loop batik-fop
 #
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
@@ -17,6 +17,7 @@ Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
 Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
 %{?with_docs:BuildRequires:	apache-forrest}
+%{?without_bootstrap:BuildRequires:	fop}
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
 BuildRequires:	rhino
@@ -56,18 +57,16 @@ Dokumentacja dla biblioteki Batik.
 %patch0 -p0
 %endif
 
-#
-# We do want to use system libs
-# problem:
-#   pdf-transcoder.jar is provided by fop, but this spec is BR for for. So we
-#   have to use pdf-transcoder.jar from batik sources.
-#
-
 br_jars='js xalan xercesImpl xml-apis xml-apis-ext'
 rm lib/js.jar lib/xalan*.jar lib/xerces*.jar lib/xml-apis*.jar
 for jar in $br_jars; do
   ln -s $(find-jar $jar) lib
 done
+
+%if %{without bootstrap}
+  rm lib/pdf-transcoder.jar
+  ln -s $(find-jar fop-transcoder) lib
+%endif
 
 %build
 unset CLASSPATH || :
@@ -92,10 +91,9 @@ for jar in batik*.jar; do
   install $jar $RPM_BUILD_ROOT%{_javadir}/%{name}/$jar
 done
 
-#
-# get rid of this jar!!! see TODO
-#
-install pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{name}/pdf-transcoder.jar
+%if %{with bootstrap}
+  install pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{name}/pdf-transcoder.jar
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
