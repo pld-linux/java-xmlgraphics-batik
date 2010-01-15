@@ -17,7 +17,7 @@ Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
 Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
 %{?with_docs:BuildRequires:	apache-forrest}
-%{?without_bootstrap:BuildRequires:	fop}
+%{!?with_bootstrap:BuildRequires:	fop}
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
 BuildRequires:	rhino
