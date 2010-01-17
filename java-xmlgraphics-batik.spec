@@ -57,20 +57,21 @@ Dokumentacja dla biblioteki Batik.
 %patch0 -p0
 %endif
 
-br_jars='js xalan xercesImpl xml-apis xml-apis-ext'
 rm lib/js.jar lib/xalan*.jar lib/xerces*.jar lib/xml-apis*.jar
-for jar in $br_jars; do
-  ln -s $(find-jar $jar) lib
-done
-
-%if %{without bootstrap}
-  rm lib/pdf-transcoder.jar
-  ln -s $(find-jar fop-transcoder) lib
-%endif
 
 %build
 unset CLASSPATH || :
-export JAVA_HOME="%{java_home}"
+export JAVA_HOME=%{java_home}
+
+jars='js xalan xercesImpl xml-apis xml-apis-ext'
+for jar in jars; do
+	ln -s $(find-jar $jar) lib
+done
+
+%if %{without bootstrap}
+	rm lib/pdf-transcoder.jar
+	ln -s $(find-jar fop-transcoder) lib
+%endif
 
 #sh build.sh dist-tgz # does not work :-(
 sh build.sh dist-zip
@@ -81,9 +82,9 @@ install -d $RPM_BUILD_ROOT%{_javadir}/%{name}/lib
 
 cd %{name}-%{version}
 for jar in batik*.jar; do
-  base=$(basename $jar .jar)
-  install $jar $RPM_BUILD_ROOT%{_javadir}/$base-%{version}.jar
-  ln -s $base-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$base.jar
+	base=$(basename $jar .jar)
+	install $jar $RPM_BUILD_ROOT%{_javadir}/$base-%{version}.jar
+	ln -s $base-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$base.jar
 done
 
 cd lib
@@ -92,7 +93,7 @@ for jar in batik*.jar; do
 done
 
 %if %{with bootstrap}
-  install pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{name}/pdf-transcoder.jar
+	install -p pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{name}/pdf-transcoder.jar
 %endif
 
 %clean
