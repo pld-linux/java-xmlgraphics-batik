@@ -16,19 +16,19 @@ Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
 # Source0-md5:	c117ca2241907f62a2b3031167ebf917
 Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
-%{?with_docs:BuildRequires:	apache-forrest}
 %{!?with_bootstrap:BuildRequires:	fop}
+%{?with_docs:BuildRequires:	java-forrest}
+BuildRequires:	java-xalan
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
 BuildRequires:	rhino
 BuildRequires:	unzip
 BuildRequires:	xalan-c
-BuildRequires:	xalan-j
 BuildRequires:	xml-commons-external
+Requires:	java-xalan
 Requires:	jre >= 1.4
 Requires:	rhino
 Requires:	xalan-c
-Requires:	xalan-j
 Requires:	xml-commons-external
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
