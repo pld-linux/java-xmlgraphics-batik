@@ -2,7 +2,7 @@
 # - generate docs without using forrest. It seems to be possible.
 #
 # Conditional build:
-%bcond_with	docs		# build with docs (require apache-forrest)
+%bcond_with	doc		# build with docs (require apache-forrest)
 %bcond_with	bootstrap	# break BR loop batik-fop
 #
 Summary:	Java SVG support
@@ -17,7 +17,7 @@ Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
 Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
 %{!?with_bootstrap:BuildRequires:	fop}
-%{?with_docs:BuildRequires:	java-forrest}
+%{?with_doc:BuildRequires:	java-forrest}
 BuildRequires:	java-xalan
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
@@ -53,7 +53,7 @@ Dokumentacja dla biblioteki Batik.
 %prep
 %setup -q
 
-%if %{without docs}
+%if %{without doc}
 %patch0 -p0
 %endif
 
@@ -102,10 +102,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES KEYS NOTICE README
+# ??? WTF dir for .jar?
 %dir %{_javadir}/batik*.jar
 %{_javadir}/%{name}
 
-%if %{with docs}
+%if %{with doc}
 %files doc
 %defattr(644,root,root,755)
 %doc %{name}-%{version}/docs/* %{name}-%{version}/samples
