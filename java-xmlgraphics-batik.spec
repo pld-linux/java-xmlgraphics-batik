@@ -28,7 +28,6 @@ BuildRequires:	xml-commons-external
 Requires:	java-xalan
 Requires:	jre >= 1.4
 Requires:	rhino
-Requires:	xalan-c
 Requires:	xml-commons-external
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
