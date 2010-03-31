@@ -24,7 +24,6 @@ BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
 BuildRequires:	rhino
 BuildRequires:	unzip
-BuildRequires:	xalan-c
 BuildRequires:	xml-commons-external
 Requires:	java-xalan
 Requires:	jre >= 1.4
