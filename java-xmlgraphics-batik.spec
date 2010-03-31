@@ -64,7 +64,7 @@ unset CLASSPATH || :
 export JAVA_HOME=%{java_home}
 
 jars='js xalan xercesImpl xml-apis xml-apis-ext'
-for jar in jars; do
+for jar in $jars; do
 	ln -s $(find-jar $jar) lib
 done
 
