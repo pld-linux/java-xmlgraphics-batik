@@ -5,11 +5,12 @@
 %bcond_with	doc		# build with docs (require apache-forrest)
 %bcond_with	bootstrap	# break BR loop batik-fop
 #
+%define		_rel	5
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
 Name:		batik
 Version:	1.7
-Release:	0.1
+Release:	%{_rel}%{?with_bootstrap:.bootstrap}
 License:	Apache
 Group:		Applications/Publishing/XML/Java
 Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
