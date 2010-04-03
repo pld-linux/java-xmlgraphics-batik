@@ -4,31 +4,35 @@
 # Conditional build:
 %bcond_with	doc		# build with docs (require apache-forrest)
 %bcond_with	bootstrap	# break BR loop batik-fop
-#
+
+%include	/usr/lib/rpm/macros.java
+
 %define		_rel	5
+%define		srcname	xmlgraphics-batik
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
-Name:		batik
+Name:		java-xmlgraphics-batik
 Version:	1.7
 Release:	%{_rel}%{?with_bootstrap:.bootstrap}
 License:	Apache
 Group:		Applications/Publishing/XML/Java
-Source0:	http://www.apache.org/dist/xmlgraphics/batik/%{name}-src-%{version}.zip
+Source0:	http://www.apache.org/dist/xmlgraphics/batik/batik-src-%{version}.zip
 # Source0-md5:	c117ca2241907f62a2b3031167ebf917
 Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
-%{!?with_bootstrap:BuildRequires:	fop}
 %{?with_doc:BuildRequires:	java-forrest}
+BuildRequires:	java-sun >= 1.4
 BuildRequires:	java-xalan
-BuildRequires:	jdk >= 1.4
+%{!?with_bootstrap:BuildRequires:	java-xmlgraphics-fop}
 BuildRequires:	jpackage-utils
 BuildRequires:	rhino
 BuildRequires:	unzip
 BuildRequires:	xml-commons-external
+Requires:	java-sun-jre >= 1.4
 Requires:	java-xalan
-Requires:	jre >= 1.4
 Requires:	rhino
 Requires:	xml-commons-external
+Obsoletes:	batik
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,7 +54,7 @@ Documentation for the Batik library.
 Dokumentacja dla biblioteki Batik.
 
 %prep
-%setup -q
+%setup -q -n batik-%{version}
 
 %if %{without doc}
 %patch0 -p0
@@ -69,7 +73,7 @@ done
 
 %if %{without bootstrap}
 	rm lib/pdf-transcoder.jar
-	ln -s $(find-jar fop-transcoder) lib
+	ln -s $(find-jar xmlgraphics-fop) lib
 %endif
 
 #sh build.sh dist-tgz # does not work :-(
@@ -77,23 +81,28 @@ sh build.sh dist-zip
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_javadir}/%{name}/lib
+install -d $RPM_BUILD_ROOT%{_javadir}/%{srcname}
 
-cd %{name}-%{version}
+cd batik-%{version}
 for jar in batik*.jar; do
 	base=$(basename $jar .jar)
-	install $jar $RPM_BUILD_ROOT%{_javadir}/$base-%{version}.jar
-	ln -s $base-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/$base.jar
+	install $jar $RPM_BUILD_ROOT%{_javadir}/xmlgraphics-$base-%{version}.jar
+	ln -s xmlgraphics-$base-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/xmlgraphics-$base.jar
 done
 
 cd lib
 for jar in batik*.jar; do
-  install $jar $RPM_BUILD_ROOT%{_javadir}/%{name}/$jar
+  install $jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/$jar
 done
 
 %if %{with bootstrap}
-	install -p pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{name}/pdf-transcoder.jar
+  install -p pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/pdf-transcoder.jar
 %endif
+
+cd ../extensions
+for jar in batik*.jar; do
+  install $jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/extension-${jar#batik-}
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,9 +110,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES KEYS NOTICE README
-# ??? WTF dir for .jar?
-%dir %{_javadir}/batik*.jar
-%{_javadir}/%{name}
+%{_javadir}/%{srcname}*.jar
+%{_javadir}/%{srcname}
 
 %if %{with doc}
 %files doc
