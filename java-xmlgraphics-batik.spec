@@ -21,16 +21,16 @@ Source0:	http://www.apache.org/dist/xmlgraphics/batik/batik-src-%{version}.zip
 Patch0:		%{name}-nodocs.patch
 URL:		http://xml.apache.org/batik/
 %{?with_doc:BuildRequires:	java-forrest}
-BuildRequires:	jdk >= 1.4
+BuildRequires:	java-rhino
 BuildRequires:	java-xalan
 %{!?with_bootstrap:BuildRequires:	java-xmlgraphics-fop}
+BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
-BuildRequires:	rhino
 BuildRequires:	unzip
 BuildRequires:	xml-commons-external
-Requires:	jre >= 1.4
+Requires:	java-rhino
 Requires:	java-xalan
-Requires:	rhino
+Requires:	jre >= 1.4
 Requires:	xml-commons-external
 Obsoletes:	batik
 BuildArch:	noarch
