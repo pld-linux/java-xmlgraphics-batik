@@ -7,13 +7,13 @@
 
 %include	/usr/lib/rpm/macros.java
 
-%define		_rel	6
+%define		_rel	7
 %define		srcname	xmlgraphics-batik
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
 Name:		java-xmlgraphics-batik
 Version:	1.7
-Release:	%{_rel}%{?with_bootstrap:.bootstrap}
+Release:	%{bootstrap_release %{_rel}}
 License:	Apache
 Group:		Applications/Publishing/XML/Java
 Source0:	http://www.apache.org/dist/xmlgraphics/batik/batik-src-%{version}.zip
@@ -26,6 +26,7 @@ BuildRequires:	java-xalan
 %{!?with_bootstrap:BuildRequires:	java-xmlgraphics-fop}
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
+BuildRequires:	rpmbuild(macros) >= 1.557
 BuildRequires:	unzip
 BuildRequires:	xml-commons-external
 Requires:	java-rhino
