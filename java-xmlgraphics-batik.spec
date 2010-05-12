@@ -26,6 +26,7 @@ BuildRequires:	java-xalan
 %{!?with_bootstrap:BuildRequires:	java-xmlgraphics-fop}
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.557
 BuildRequires:	unzip
 BuildRequires:	xml-commons-external
