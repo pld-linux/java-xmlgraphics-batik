@@ -7,7 +7,7 @@
 
 %include	/usr/lib/rpm/macros.java
 
-%define		_rel	7.1
+%define		_rel	8
 %define		srcname	xmlgraphics-batik
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
