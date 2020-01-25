@@ -5,7 +5,6 @@
 %bcond_with	doc		# build with docs (require apache-forrest)
 %bcond_with	bootstrap	# break BR loop batik-fop
 
-%include	/usr/lib/rpm/macros.java
 
 %define		_rel	8
 %define		srcname	xmlgraphics-batik
