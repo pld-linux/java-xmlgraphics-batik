@@ -58,7 +58,7 @@ Dokumentacja dla biblioteki Batik.
 %setup -q -n batik-%{version}
 
 %if %{without doc}
-%patch0 -p0
+%patch -P0 -p0
 %endif
 
 rm lib/js.jar lib/xalan*.jar lib/xerces*.jar lib/xml-apis*.jar
