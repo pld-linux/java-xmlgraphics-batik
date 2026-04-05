@@ -5,8 +5,10 @@
 %bcond_with	doc		# build with docs (require apache-forrest)
 %bcond_with	bootstrap	# break BR loop batik-fop
 
+%{?use_default_jdk:%use_default_jdk 8}
 
-%define		_rel	8
+
+%define		_rel	9
 %define		srcname	xmlgraphics-batik
 Summary:	Java SVG support
 Summary(pl.UTF-8):	Wsparcie dla SVG dla języka Java
@@ -24,7 +26,7 @@ BuildRequires:	java-rhino
 BuildRequires:	java-xalan
 BuildRequires:	java-xml-commons-external
 %{!?with_bootstrap:BuildRequires:	java-xmlgraphics-fop}
-BuildRequires:	jdk >= 1.4
+%buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.557
