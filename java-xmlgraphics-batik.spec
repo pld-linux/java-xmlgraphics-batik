@@ -29,7 +29,7 @@ BuildRequires:	java-xml-commons-external
 %buildrequires_jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.557
+BuildRequires:	rpmbuild(macros) >= 2.021
 BuildRequires:	unzip
 Requires:	java-rhino
 Requires:	java-xalan
@@ -94,16 +94,16 @@ done
 
 cd lib
 for jar in batik*.jar; do
-  install $jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/$jar
+	install $jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/$jar
 done
 
 %if %{with bootstrap}
-  install -p pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/pdf-transcoder.jar
+install -p pdf-transcoder.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/pdf-transcoder.jar
 %endif
 
 cd ../extensions
 for jar in batik*.jar; do
-  install $jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/extension-${jar#batik-}
+	install $jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}/extension-${jar#batik-}
 done
 
 %clean
