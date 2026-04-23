@@ -34,7 +34,6 @@ BuildRequires:	unzip
 Requires:	java-rhino
 Requires:	java-xalan
 Requires:	java-xml-commons-external
-Requires:	jre >= 1.4
 Obsoletes:	batik
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
